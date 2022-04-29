@@ -63,8 +63,8 @@ char* SetName();
 void InitializePlayer(OBJECT* _Warrior, OBJECT* _Archer, OBJECT* _Magician);
 void SceneManager(OBJECT* _Player, OBJECT* _Enemy);
 void MenuScene();
-void StageScene(OBJECT* _Player, OBJECT* _Enemy);
 void PlayerScene(OBJECT* _Player);
+void StageScene(OBJECT* _Player, OBJECT* _Enemy);
 void EnemyScene(OBJECT* _Enemy);
 void InitializeEnemy(OBJECT* _Enemy);
 void HideCursor();
@@ -100,7 +100,7 @@ int main(void)
 	int Delay = 1000;
 
 	int UpCount = 0;
-
+	
 	while (true)
 	{
 		if (dwTime + Delay < GetTickCount64())
@@ -115,6 +115,7 @@ int main(void)
 			SceneManager(Player, Monster);
 		}
 	}
+
 	return 0;
 }
 
@@ -172,7 +173,7 @@ void MenuScene()
 	scanf_s("%d", &i);
 
 	if (i == 1)
-		SceneState++;
+		SceneState = Scene_Stage;
 	else if (i == 2)
 		SceneState = Scene_Exit;
 }
@@ -254,7 +255,7 @@ void InitializeEnemy(OBJECT * _Enemy)
 	_Enemy->Info.ILevel = 1;
 }
 
-void PlayerScene(OBJECT * _Player)
+void PlayerScene(OBJECT* _Player)
 {
 	if (SetnameTime + 10000 < GetTickCount64())
 		Check = 1;
@@ -345,28 +346,33 @@ void SetPosition(int _x, int _y, char* _str, int _Color)
 
 void FirstScene()// 게임시작 화면
 {
-	int Width = (120 / 2) - (strlen("RRRRRRRRRRRRRRRRR   PPPPPPPPPPPPPPPPP           GGGGGGGGGGGGG\n") / 2);
+	int Width = (50) - (strlen("RRRRRRRRRRRRRRRRR   PPPPPPPPPPPPPPPPP           GGGGGGGGGGGGG\n") / 2);
 	int Height = 5;
+	int n = 0;
 
-	SetPosition(Width, Height + 1, (char*)"RRRRRRRRRRRRRRRRR   PPPPPPPPPPPPPPPPP           GGGGGGGGGGGGG\n", 6);
-	SetPosition(Width, Height + 2, (char*)"R::::::::::::::::R  P::::::::::::::::P       GGG::::::::::::G\n", 6);
-	SetPosition(Width, Height + 3, (char*)"R::::::RRRRRR:::::R P::::::PPPPPP:::: : P    GG:::::::::::::: : G\n", 6);
-	SetPosition(Width, Height + 4, (char*)"RR:::: : R     R:::: : RPP:::: : P     P:::: : P  G:::: : GGGGGGGG::::G\n", 6);
-	SetPosition(Width, Height + 5, (char*)"R::::R     R:::: : R  P::::P     P:::: : P G:::: : G       GGGGGG\n", 6);
-	SetPosition(Width, Height + 6, (char*)"R::::R     R:::: : R  P::::P     P:::: : PG:::: : G\n", 6);
-	SetPosition(Width, Height + 7, (char*)"R::::RRRRRR:::: : R   P::::PPPPPP:::: : P G:::: : G\n", 6);
-	SetPosition(Width, Height + 8, (char*)"R:::::::::::: : RR    P:::::::::::: : PP  G:::: : G    GGGGGGGGGG\n", 6);
-	SetPosition(Width, Height + 9, (char*)"R::::RRRRRR:::: : R   P::::PPPPPPPPP    G:::: : G    G::::::::G\n", 6);
-	SetPosition(Width, Height + 10, (char*)"R::::R     R:::: : R  P::::P            G:::: : G    GGGGG::::G\n", 6);
-	SetPosition(Width, Height + 11, (char*)"R::::R     R:::: : R  P::::P            G:::: : G        G::::G\n", 6);
-	SetPosition(Width, Height + 12, (char*)"R::::R     R:::: : R  P::::P             G:::: : G       G::::G\n", 6);
-	SetPosition(Width, Height + 13, (char*)"RR:::: : R     R:::: : RPP::::::PP            G:::: : GGGGGGGG::::G\n", 6);
-	SetPosition(Width, Height + 14, (char*)"R::::::R     R:::: : RP::::::::P             GG:::::::::::::: : G\n", 6);
-	SetPosition(Width, Height + 15, (char*)"R::::::R     R:::: : RP::::::::P               GGG::::::GGG:: : G\n", 6);
-	SetPosition(Width, Height + 16, (char*)"RRRRRRRR     RRRRRRRPPPPPPPPPP                  GGGGGG   GGGG\n", 6);
+	for (int i = 0; i < 5; i++)
+	{
+		SetPosition(Width + n, Height + 1, (char*)"RRRRRRRRRRRRRRRRR   PPPPPPPPPPPPPPPPP           GGGGGGGGGGGGG\n", 6);
+		SetPosition(Width + n, Height + 2, (char*)"R::::::::::::::::R  P::::::::::::::::P       GGG::::::::::::G\n", 6);
+		SetPosition(Width + n, Height + 3, (char*)"R::::::RRRRRR:::::R P::::::PPPPPP:::: : P    GG:::::::::::::: : G\n", 6);
+		SetPosition(Width + n, Height + 4, (char*)"RR:::: : R     R:::: : RPP:::: : P     P:::: : P  G:::: : GGGGGGGG::::G\n", 6);
+		SetPosition(Width + n, Height + 5, (char*)"R::::R     R:::: : R  P::::P     P:::: : P G:::: : G       GGGGGG\n", 6);
+		SetPosition(Width + n, Height + 6, (char*)"R::::R     R:::: : R  P::::P     P:::: : PG:::: : G\n", 6);
+		SetPosition(Width + n, Height + 7, (char*)"R::::RRRRRR:::: : R   P::::PPPPPP:::: : P G:::: : G\n", 6);
+		SetPosition(Width + n, Height + 8, (char*)"R:::::::::::: : RR    P:::::::::::: : PP  G:::: : G    GGGGGGGGGG\n", 6);
+		SetPosition(Width + n, Height + 9, (char*)"R::::RRRRRR:::: : R   P::::PPPPPPPPP    G:::: : G    G::::::::G\n", 6);
+		SetPosition(Width + n, Height + 10, (char*)"R::::R     R:::: : R  P::::P            G:::: : G    GGGGG::::G\n", 6);
+		SetPosition(Width + n, Height + 11, (char*)"R::::R     R:::: : R  P::::P            G:::: : G        G::::G\n", 6);
+		SetPosition(Width + n, Height + 12, (char*)"R::::R     R:::: : R  P::::P             G:::: : G       G::::G\n", 6);
+		SetPosition(Width + n, Height + 13, (char*)"RR:::: : R     R:::: : RPP::::::PP            G:::: : GGGGGGGG::::G\n", 6);
+		SetPosition(Width + n, Height + 14, (char*)"R::::::R     R:::: : RP::::::::P             GG:::::::::::::: : G\n", 6);
+		SetPosition(Width + n, Height + 15, (char*)"R::::::R     R:::: : RP::::::::P               GGG::::::GGG:: : G\n", 6);
+		SetPosition(Width + n, Height + 16, (char*)"RRRRRRRR     RRRRRRRPPPPPPPPPP                  GGGGGG   GGGG\n", 6);
+		n++;
 
-	Sleep(3000);
-	system("cls");
+		Sleep(500);
+		system("cls");
+	}
 }
 
 void GameStrat()// 게임 시작, 나가기 선택
