@@ -89,6 +89,7 @@ void Store(OBJECT* _Player);
 void Battle(OBJECT* _Player, OBJECT* _Enemy);
 void BasesBattle(OBJECT* _Player, OBJECT* _Enemy);
 void EliteEnemy(OBJECT* _Enemy, OBJECT* _Player);
+void BattleEnd(OBJECT* _Player, OBJECT* _Enemy);
 
 int main(void)
 {
@@ -124,24 +125,7 @@ int main(void)
 			dwTime = GetTickCount64();
 
 			system("cls");
-
-			printf_s("Player : %s\n", Player->Name);
-			if (Player->Info.IClass == 1)
-			{
-				printf_s("Class : 전사\n");
-			}
-			else if (Player->Info.IClass == 2)
-			{
-				printf_s("Class : 궁수\n");
-			}
-			else if (Player->Info.IClass == 3)
-			{
-				printf_s("Class : 마법사\n");
-			}
-			else
-			{
-				printf_s("Class : 없음\n");
-			}
+			
 			// ** 게임 루프
 			SceneManager(Player, Monster);
 		}
@@ -202,6 +186,15 @@ void SceneManager(OBJECT * _Player, OBJECT * _Enemy)
 
 void MenuScene(OBJECT* _Player)
 {
+	printf_s("Player : %s\n", _Player->Name);
+	if (_Player->Info.IClass == 1)
+	{
+		printf_s("Class : 전사\n");
+	}
+	else if (_Player->Info.IClass == 2)
+	{
+		printf_s("Class : 궁수\n");
+	}
 	printf_s("MenuScene\n");
 
 	printf_s("1. 이동\n2. 상점\n3. 정보창\n4. 종료\n입력 : ");
@@ -254,7 +247,7 @@ void InitializePlayer(OBJECT * _Warrior, OBJECT * _Archer, OBJECT * _Magician) /
 
 			_Warrior->Info.IClass = 1;
 			_Warrior->Info.ILevel = 1;
-			_Warrior->Info.FAttack = 50 + _Warrior->Info.ILevel * 5;
+			_Warrior->Info.FAttack = 5 + _Warrior->Info.ILevel * 5;
 			_Warrior->Info.FDefense = 10 + _Warrior->Info.ILevel * 5;
 			_Warrior->Info.IExp = 0;
 			_Warrior->Info.IHP = 100 + _Warrior->Info.ILevel * 15;
@@ -301,6 +294,7 @@ void InitializeEnemy(OBJECT* _Enemy, OBJECT* _Player)
 {
 	_Enemy->Name = (char*)"잡몹";
 
+	_Enemy->Info.IClass = 1;
 	_Enemy->Info.ILevel = _Player->Info.ILevel;
 	_Enemy->Info.FAttack = 5 + (_Enemy->Info.ILevel * 5);
 	_Enemy->Info.FDefense = 15 + (_Enemy->Info.ILevel * 5);
@@ -314,6 +308,7 @@ void EliteEnemy(OBJECT* _Enemy, OBJECT* _Player)
 {
 	_Enemy->Name = (char*)"앨리트 몹";
 
+	_Enemy->Info.IClass = 2;
 	_Enemy->Info.ILevel = _Player->Info.ILevel;
 	_Enemy->Info.FAttack = 8 + (_Enemy->Info.ILevel * 7);
 	_Enemy->Info.FDefense = 22 + (_Enemy->Info.ILevel * 7);
@@ -339,6 +334,15 @@ void PlayerScene(OBJECT* _Player)
 
 void Store(OBJECT* _Player) // 상점
 {
+	printf_s("Player : %s\n", _Player->Name);
+	if (_Player->Info.IClass == 1)
+	{
+		printf_s("Class : 전사\n");
+	}
+	else if (_Player->Info.IClass == 2)
+	{
+		printf_s("Class : 궁수\n");
+	}
 	int n = 0;
 	printf_s("1. 구입\n2. 판매\n3. 메인메뉴\n선택 : ");
 	scanf_s("%d", &n);
@@ -415,8 +419,6 @@ void Store(OBJECT* _Player) // 상점
 					printf_s("MenuScene로 돌아갑니다.\n");
 					Sleep(1000);
 					system("cls");
-					printf_s("Player : %s\n", _Player->Name);
-					printf_s("Class : 전사\n");
 					MenuScene(_Player);
 				}
 				else if (Weapon == 2 && _Player->Info.IGold >= 20)
@@ -469,8 +471,6 @@ void Store(OBJECT* _Player) // 상점
 					printf_s("MenuScene로 돌아갑니다.\n");
 					Sleep(1000);
 					system("cls");
-					printf_s("Player : %s\n", _Player->Name);
-					printf_s("Class : 전사\n");
 					MenuScene(_Player);
 				}
 				else if ((Weapon == 3 && _Player->Info.IGold >= 40))
@@ -503,8 +503,6 @@ void Store(OBJECT* _Player) // 상점
 					printf_s("상점창으로 되돌아갑니다.\n");
 					Sleep(1000);
 					system("cls");
-					printf_s("Player : %s\n", _Player->Name);
-					printf_s("Class : 전사\n");
 					Store(_Player);
 				}
 				else
@@ -523,8 +521,6 @@ void Store(OBJECT* _Player) // 상점
 				printf_s("MenuScene로 돌아갑니다.\n");
 				Sleep(1000);
 				system("cls");
-				printf_s("Player : %s\n", _Player->Name);
-				printf_s("Class : 전사\n");
 				MenuScene(_Player);
 				}
 				else if (Weapon == 4)
@@ -605,8 +601,6 @@ void Store(OBJECT* _Player) // 상점
 					printf_s("MenuScene로 돌아갑니다.\n");
 					Sleep(1000);
 					system("cls");
-					printf_s("Player : %s\n", _Player->Name);
-					printf_s("Class : 전사\n");
 					MenuScene(_Player);
 				}
 				else if (Armor == 2 && _Player->Info.IGold >= 20)
@@ -659,8 +653,6 @@ void Store(OBJECT* _Player) // 상점
 					printf_s("MenuScene로 돌아갑니다.\n");
 					Sleep(1000);
 					system("cls");
-					printf_s("Player : %s\n", _Player->Name);
-					printf_s("Class : 전사\n");
 					MenuScene(_Player);
 				}
 				else if ((Armor == 3 && _Player->Info.IGold >= 40))
@@ -704,8 +696,6 @@ void Store(OBJECT* _Player) // 상점
 				printf_s("MenuScene로 돌아갑니다.\n");
 				Sleep(1000);
 				system("cls");
-				printf_s("Player : %s\n", _Player->Name);
-				printf_s("Class : 전사\n");
 				MenuScene(_Player);
 				}
 				else if (Armor == 4)
@@ -1916,18 +1906,6 @@ void Store(OBJECT* _Player) // 상점
 	Sleep(1000);
 	system("cls");
 	printf_s("Player : %s\n", _Player->Name);
-	if (_Player->Info.IClass == 1)
-	{
-		printf_s("Class : 전사\n");
-	}
-	else if (_Player->Info.IClass == 2)
-	{
-		printf_s("Class : 궁수\n");
-	}
-	else if (_Player->Info.IClass == 3)
-	{
-		printf_s("Class : 마법사\n");
-	}
 	MenuScene(_Player);
  }
 }
@@ -2016,9 +1994,9 @@ void StageScene(OBJECT * _Player, OBJECT * _Enemy) // 스테이지 몬스터와 전투
 	{
 		int Numbers[3];
 		time_t tTime = time(NULL);
-		int Rand = rand() % 45 + 1;
+		int Rand = rand() % 3;
 
-		if ((Rand % 3) == 1 || (Rand % 3) == 2)
+		if (Rand == 1 || Rand == 2)
 		{
 			if (_Player->Info.IClass == 1)
 			{
@@ -2083,17 +2061,57 @@ void StageScene(OBJECT * _Player, OBJECT * _Enemy) // 스테이지 몬스터와 전투
 	}
 }
 
-void BasesBattle(OBJECT* _Player, OBJECT* _Enemy)
+void BattleEnd(OBJECT* _Player, OBJECT* _Enemy)
 {
-	int Numbers[3];
-	time_t tTime = time(NULL);
-	int Rand = rand() % 45 + 1;
-
-	if ((Rand % 3) == 1 || (Rand % 3) == 2)
+	if (_Player->Info.IHP <= 0)
 	{
-		InitializeEnemy(_Enemy, _Player);
 		int n = 0;
-		printf_s("몬스터와 전투를 시작합니다.\n");
+		printf_s("Player : %s\n", _Player->Name);
+		printf_s("사망하셨습니다.\n");
+		printf_s("게임을 종료합니다.\n");
+		exit(NULL);
+	}
+	else if (_Enemy->Info.IHP <= 0)
+	{
+		printf_s("Player : %s\n", _Player->Name);
+		printf_s("전투에서 승리하셨습니다.\n");
+		printf_s("전리품\n");
+		printf_s("경험치 : %d\n", _Enemy->Info.IExp);
+		printf_s("골드 : %d\n", _Enemy->Info.IGold);
+		_Player->Info.IExp += _Enemy->Info.IExp;
+		_Player->Info.IGold += _Enemy->Info.IGold;
+
+		if (_Player->Info.IExp >= _Player->Info.ILevel * 2 && _Player->Info.ILevel <= 50)
+		{
+			printf_s("렙업을 하셨습니다.\n");
+			++_Player->Info.ILevel;
+			_Player->Info.IExp = 0;
+		}
+
+		_Enemy->Info.ILevel = _Player->Info.ILevel;
+		_Enemy->Info.FAttack = 5 + (_Enemy->Info.ILevel * 5);
+		_Enemy->Info.FDefense = 15 + (_Enemy->Info.ILevel * 5);
+		_Enemy->Info.IExp = 2;
+		_Enemy->Info.IHP = 30 + (_Enemy->Info.ILevel * 15);
+		_Enemy->Info.IMP = 5 + (_Enemy->Info.ILevel * 15);
+		_Enemy->Info.IGold = 10;
+		Sleep(1000);
+		system("cls");
+		printf_s("Player : %s\n", _Player->Name);
+		MenuScene(_Player);
+	}
+	else
+	{
+		int n = 0;
+		printf_s("플레이어 정보\n");
+		printf_s("Name : %s\n", _Player->Name);
+		printf_s("1. HP : %d\n", _Player->Info.IHP);
+		printf_s("MP : %d\n", _Player->Info.IMP);
+		printf_s("Att : %f\n", _Player->Info.FAttack);
+		printf_s("Dtt : %f\n", _Player->Info.FDefense);
+		printf_s("Exp : %d\n", _Player->Info.IExp);
+		printf_s("Level : %d\n\n", _Player->Info.ILevel);
+
 		printf_s("몬스터 정보\n");
 		printf_s("Name : %s\n", _Enemy->Name);
 		printf_s("1. HP : %d\n", _Enemy->Info.IHP);
@@ -2101,85 +2119,84 @@ void BasesBattle(OBJECT* _Player, OBJECT* _Enemy)
 		printf_s("Att : %f\n", _Enemy->Info.FAttack);
 		printf_s("Dtt : %f\n", _Enemy->Info.FDefense);
 		printf_s("Exp : %d\n", _Enemy->Info.IExp);
+		printf_s("Level : %d\n\n", _Enemy->Info.ILevel);
+	}
+}
+void BasesBattle(OBJECT* _Player, OBJECT* _Enemy)
+{
+	int Numbers[3];
+	time_t tTime = time(NULL);
+	int Rand = rand() % 3;
+
+	if (Rand == 1 || Rand == 2)
+	{
+		InitializeEnemy(_Enemy, _Player);
+		int n = 0;
+		printf_s("몬스터와 전투를 시작합니다.\n");
+		printf_s("몬스터 정보\n");
+		printf_s("Name : %s\n", _Enemy->Name);
+		printf_s("HP : %d\n", _Enemy->Info.IHP);
+		printf_s("MP : %d\n", _Enemy->Info.IMP);
+		printf_s("Att : %f\n", _Enemy->Info.FAttack);
+		printf_s("Dtt : %f\n", _Enemy->Info.FDefense);
+		printf_s("Exp : %d\n", _Enemy->Info.IExp);
 		printf_s("Level : %d\n", _Enemy->Info.ILevel);
 		printf_s("1. 기본 공격\n2. 스킬\n3. 물약\n선택 : ");
 		scanf_s("%d", &n);
-
+		system("cls");
 		switch (n)
-		{
+
 		case 1:
-			system("cls");
+			while (true)
+		{
 			int n = 0;
 			Battle(_Player, _Enemy);
-			if (_Player->Info.IHP <= 0)
+			BattleEnd(_Player, _Enemy);
+			printf_s("1. 다시 전투 2. 도망\n");
+			scanf_s("%d", &n);
+			if (n == 1)
 			{
-				int n = 0;
-				printf_s("Player : %s\n", _Player->Name);
-				printf_s("사망하셨습니다.\n");
-				printf_s("게임을 종료합니다.\n");
-				exit(NULL);
-			}
-			else if (_Enemy->Info.IHP <= 0)
-			{
-				printf_s("Player : %s\n", _Player->Name);
-				printf_s("전투에서 승리하셨습니다.\n");
-				printf_s("전리품\n");
-				printf_s("경험치 : %d\n", _Enemy->Info.IExp);
-				printf_s("골드 : %d\n", _Enemy->Info.IGold);
-				_Player->Info.IExp += _Enemy->Info.IExp;
-				_Player->Info.IGold += _Enemy->Info.IGold;
-
-				if (_Player->Info.IExp >= _Player->Info.ILevel * 2 && _Player->Info.ILevel <= 50)
-				{
-					printf_s("렙업을 하셨습니다.\n");
-					++_Player->Info.ILevel;
-					_Player->Info.IExp = 0;
-				}
-
-				_Enemy->Info.ILevel = _Player->Info.ILevel;
-				_Enemy->Info.FAttack = 5 + (_Enemy->Info.ILevel * 5);
-				_Enemy->Info.FDefense = 15 + (_Enemy->Info.ILevel * 5);
-				_Enemy->Info.IExp = 2;
-				_Enemy->Info.IHP = 30 + (_Enemy->Info.ILevel * 15);
-				_Enemy->Info.IMP = 5 + (_Enemy->Info.ILevel * 15);
-				_Enemy->Info.IGold = 10;
-				Sleep(1000);
 				system("cls");
-				printf_s("Player : %s\n", _Player->Name);
-				MenuScene(_Player);
-			}
-			else
-			{
-				int n = 0;
-				printf_s("플레이어 정보\n");
-				printf_s("Name : %s\n", _Player->Name);
-				printf_s("1. HP : %d\n", _Player->Info.IHP);
-				printf_s("MP : %d\n", _Player->Info.IMP);
-				printf_s("Att : %f\n", _Player->Info.FAttack);
-				printf_s("Dtt : %f\n", _Player->Info.FDefense);
-				printf_s("Exp : %d\n", _Player->Info.IExp);
-				printf_s("Level : %d\n\n", _Player->Info.ILevel);
-
-				printf_s("몬스터 정보\n");
-				printf_s("Name : %s\n", _Enemy->Name);
-				printf_s("1. HP : %d\n", _Enemy->Info.IHP);
-				printf_s("MP : %d\n", _Enemy->Info.IMP);
-				printf_s("Att : %f\n", _Enemy->Info.FAttack);
-				printf_s("Dtt : %f\n", _Enemy->Info.FDefense);
-				printf_s("Exp : %d\n", _Enemy->Info.IExp);
-				printf_s("Level : %d\n\n", _Enemy->Info.ILevel);
-
+				Battle(_Player, _Enemy);
+				BattleEnd(_Player, _Enemy);
+				system("cls");
 				printf_s("1. 다시 전투 2. 도망\n");
-				scanf_s("%d", &n);
-				if (n == 1)
+			}
+			else if (n == 2)
+			{
+				int Numbers[3];
+				time_t tTime = time(NULL);
+				int Rand = rand() % 45 + 1;
+
+				if ((Rand % 3) == 1 || (Rand % 3) == 2)
 				{
+					system("cls");
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("도망치는데 성공했습니다.\n");
+					printf_s("메인메뉴로 돌아갑니다.\n");
+					Sleep(1000);
+					system("cls");
+					MenuScene(_Player);
+				}
+				else
+				{
+					system("cls");
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("도망치는데 실패했습니다.\n");
+					printf_s("전투를 시작합니다.\n");
+					Sleep(1000);
 					system("cls");
 					BasesBattle(_Player, _Enemy);
 				}
-				else if (n == 2)
-				{
-
-				}
+			}
+			else
+			{
+				system("cls");
+				printf_s("잘못 누르셨습니다.\n");
+				printf_s("전투를 실행합니다.\n");
+				Sleep(1000);
+				system("cls");
+				BasesBattle(_Player, _Enemy);
 			}
 		}
 	}
@@ -2190,7 +2207,7 @@ void BasesBattle(OBJECT* _Player, OBJECT* _Enemy)
 		printf_s("몬스터와 전투를 시작합니다.\n");
 		printf_s("몬스터 정보\n");
 		printf_s("Name : %s\n", _Enemy->Name);
-		printf_s("1. HP : %d\n", _Enemy->Info.IHP);
+		printf_s("HP : %d\n", _Enemy->Info.IHP);
 		printf_s("MP : %d\n", _Enemy->Info.IMP);
 		printf_s("Att : %f\n", _Enemy->Info.FAttack);
 		printf_s("Dtt : %f\n", _Enemy->Info.FDefense);
@@ -2198,79 +2215,24 @@ void BasesBattle(OBJECT* _Player, OBJECT* _Enemy)
 		printf_s("Level : %d\n", _Enemy->Info.ILevel);
 		printf_s("1. 기본 공격\n2. 스킬\n3. 물약\n선택 : ");
 		scanf_s("%d", &n);
-
+		system("cls");
 		switch (n)
-		{
+
 		case 1:
-			system("cls");
-			int n = 0;
-			Battle(_Player, _Enemy);
-			if (_Player->Info.IHP <= 0)
+			while (true)
 			{
 				int n = 0;
-				printf_s("Player : %s\n", _Player->Name);
-				printf_s("사망하셨습니다.\n");
-				printf_s("게임을 종료합니다.\n");
-				exit(NULL);
-			}
-			else if (_Enemy->Info.IHP <= 0)
-			{
-				printf_s("Player : %s\n", _Player->Name);
-				printf_s("Class : 전사\n");
-				printf_s("전투에서 승리하셨습니다.\n");
-				printf_s("전리품\n");
-				printf_s("경험치 : %d\n", _Enemy->Info.IExp);
-				printf_s("골드 : %d\n", _Enemy->Info.IGold);
-				_Player->Info.IExp += _Enemy->Info.IExp;
-				_Player->Info.IGold += _Enemy->Info.IGold;
-
-				if (_Player->Info.IExp >= _Player->Info.ILevel * 2 && _Player->Info.ILevel <= 50)
-				{
-					printf_s("렙업을 하셨습니다.\n");
-					Sleep(1000);
-					++_Player->Info.ILevel;
-					_Player->Info.IExp = 0;
-				}
-
-				_Enemy->Info.ILevel = _Player->Info.ILevel;
-				_Enemy->Info.FAttack = 5 + (_Enemy->Info.ILevel * 5);
-				_Enemy->Info.FDefense = 15 + (_Enemy->Info.ILevel * 5);
-				_Enemy->Info.IExp = 2;
-				_Enemy->Info.IHP = 30 + (_Enemy->Info.ILevel * 15);
-				_Enemy->Info.IMP = 5 + (_Enemy->Info.ILevel * 15);
-				_Enemy->Info.IGold = 10;
-				Sleep(2000);
-				system("cls");
-				printf_s("Player : %s\n", _Player->Name);
-				MenuScene(_Player);
-			}
-			else
-			{
-				int n = 0;
-				printf_s("플레이어 정보\n");
-				printf_s("Name : %s\n", _Player->Name);
-				printf_s("1. HP : %d\n", _Player->Info.IHP);
-				printf_s("MP : %d\n", _Player->Info.IMP);
-				printf_s("Att : %f\n", _Player->Info.FAttack);
-				printf_s("Dtt : %f\n", _Player->Info.FDefense);
-				printf_s("Exp : %d\n", _Player->Info.IExp);
-				printf_s("Level : %d\n\n", _Player->Info.ILevel);
-
-				printf_s("몬스터 정보\n");
-				printf_s("Name : %s\n", _Enemy->Name);
-				printf_s("1. HP : %d\n", _Enemy->Info.IHP);
-				printf_s("MP : %d\n", _Enemy->Info.IMP);
-				printf_s("Att : %f\n", _Enemy->Info.FAttack);
-				printf_s("Dtt : %f\n", _Enemy->Info.FDefense);
-				printf_s("Exp : %d\n", _Enemy->Info.IExp);
-				printf_s("Level : %d\n\n", _Enemy->Info.ILevel);
-
+				Battle(_Player, _Enemy);
+				BattleEnd(_Player, _Enemy);
 				printf_s("1. 다시 전투 2. 도망\n");
 				scanf_s("%d", &n);
 				if (n == 1)
 				{
 					system("cls");
-					BasesBattle(_Player, _Enemy);
+					Battle(_Player, _Enemy);
+					BattleEnd(_Player, _Enemy);
+					system("cls");
+					printf_s("1. 다시 전투 2. 도망\n");
 				}
 				else if (n == 2)
 				{
@@ -2310,7 +2272,6 @@ void BasesBattle(OBJECT* _Player, OBJECT* _Enemy)
 					BasesBattle(_Player, _Enemy);
 				}
 			}
-		}
 	}
 }
 
@@ -2318,7 +2279,7 @@ void Battle(OBJECT* _Player, OBJECT* _Enemy)
 {
 	if (_Player->Info.FAttack > _Enemy->Info.FDefense)
 	{
-		_Enemy->Info.IHP -= _Player->Info.FAttack - _Enemy->Info.FDefense;
+		_Enemy->Info.IHP = _Enemy->Info.IHP - (_Player->Info.FAttack - _Enemy->Info.FDefense);
 	}
 	else
 	{
@@ -2332,7 +2293,9 @@ void Battle(OBJECT* _Player, OBJECT* _Enemy)
 	{
 		_Player->Info.IHP -= 1;
 	}
-	Sleep(1000);
+	printf_s("%f\n", _Enemy->Info.FDefense);
+	printf_s("%f\n", _Player->Info.FAttack);
+	printf_s("%f\n", _Enemy->Info.IHP - (_Player->Info.FAttack - _Enemy->Info.FDefense));
 }
 
 void HideCursor()
