@@ -54,12 +54,25 @@ typedef struct tagInfo
 	int ILevel;
 	int IGold;
 	int IClass;
+
 	int IHPMedicine1;
 	int IHPMedicine2;
 	int IHPMedicine3;
 	int IMPMedicine1;
 	int IMPMedicine2;
 	int IMPMedicine3;
+
+	int IWeapon1;
+	int IWeapon2;
+	int IWeapon3;
+
+	int IArmor1;
+	int IArmor2;
+	int IArmor3;
+
+	int IAccessory1;
+	int IAccessory2;
+	int IAccessory3;
 
 	float FAttack;
 	float FDefense;
@@ -252,13 +265,27 @@ void InitializePlayer(OBJECT * _Warrior, OBJECT * _Archer, OBJECT * _Magician) /
 			_Warrior->Info.IExp = 0;
 			_Warrior->Info.IHP = 100 + _Warrior->Info.ILevel * 15;
 			_Warrior->Info.IMP = 50 + _Warrior->Info.ILevel * 15;
-			_Warrior->Info.IGold = 20;
+			_Warrior->Info.IGold = 100;
+
 			_Warrior->Info.IHPMedicine1 = 0;
 			_Warrior->Info.IHPMedicine2 = 0;
 			_Warrior->Info.IHPMedicine3 = 0;
 			_Warrior->Info.IMPMedicine1 = 0;
 			_Warrior->Info.IMPMedicine2 = 0;
 			_Warrior->Info.IMPMedicine3 = 0;
+
+			_Warrior->Info.IWeapon1 = 0;
+			_Warrior->Info.IWeapon2 = 0;
+			_Warrior->Info.IWeapon3 = 0;
+
+			_Warrior->Info.IArmor1 = 0;
+			_Warrior->Info.IArmor2 = 0;
+			_Warrior->Info.IArmor3 = 0;
+
+			_Warrior->Info.IAccessory1 = 0;
+			_Warrior->Info.IAccessory2 = 0;
+			_Warrior->Info.IAccessory3 = 0;
+			
 			SetPosition(Width, Height, (char*)"당신의 직업은 전사입니다. \n", 15);
 		}
 		else if (i == 2)
@@ -389,6 +416,7 @@ void Store(OBJECT* _Player) // 상점
 						system("cls");
 						_Player->Info.FAttack = _Player->Info.FAttack + 10;
 						_Player->Info.IGold = _Player->Info.IGold - 10;
+						_Player->Info.IWeapon1++;
 						MenuScene(_Player);
 					}
 					else if (WChoice == 2)
@@ -399,8 +427,6 @@ void Store(OBJECT* _Player) // 상점
 						printf_s("상점창으로 되돌아갑니다.\n");
 						Sleep(1000);
 						system("cls");
-						printf_s("Player : %s\n", _Player->Name);
-						printf_s("Class : 전사\n");
 						Store(_Player);
 					}
 					else
@@ -410,11 +436,14 @@ void Store(OBJECT* _Player) // 상점
 						printf_s("잘못 선택하셨습니다.\n");
 						printf_s("상점창으로 돌아갑니다.\n");
 						Sleep(1000);
+						system("cls");
 						Store(_Player);
 					}
 				}
 				else if ((Weapon == 1 && _Player->Info.IGold < 10))
 				{
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
 					printf_s("골드가 부족합니다. \n");
 					printf_s("MenuScene로 돌아갑니다.\n");
 					Sleep(1000);
@@ -441,6 +470,7 @@ void Store(OBJECT* _Player) // 상점
 						system("cls");
 						_Player->Info.FAttack = _Player->Info.FAttack + 20;
 						_Player->Info.IGold = _Player->Info.IGold - 20;
+						_Player->Info.IWeapon2++;
 						MenuScene(_Player);
 					}
 					else if (WChoice == 2)
@@ -451,8 +481,6 @@ void Store(OBJECT* _Player) // 상점
 						printf_s("상점창으로 되돌아갑니다.\n");
 						Sleep(1000);
 						system("cls");
-						printf_s("Player : %s\n", _Player->Name);
-						printf_s("Class : 전사\n");
 						Store(_Player);
 					}
 					else
@@ -462,11 +490,14 @@ void Store(OBJECT* _Player) // 상점
 						printf_s("잘못 선택하셨습니다.\n");
 						printf_s("상점창으로 돌아갑니다.\n");
 						Sleep(1000);
+						system("cls");
 						Store(_Player);
 					}
 				}
 				else if ((Weapon == 2 && _Player->Info.IGold < 20))
 				{
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
 					printf_s("골드가 부족합니다. \n");
 					printf_s("MenuScene로 돌아갑니다.\n");
 					Sleep(1000);
@@ -493,6 +524,7 @@ void Store(OBJECT* _Player) // 상점
 					system("cls");
 					_Player->Info.FAttack = _Player->Info.FAttack + 40;
 					_Player->Info.IGold = _Player->Info.IGold - 40;
+					_Player->Info.IWeapon3++;
 					MenuScene(_Player);
 				}
 				else if (WChoice == 2)
@@ -512,11 +544,14 @@ void Store(OBJECT* _Player) // 상점
 					printf_s("잘못 선택하셨습니다.\n");
 					printf_s("상점창으로 돌아갑니다.\n");
 					Sleep(1000);
+					system("cls");
 					Store(_Player);
 				}
  }
 				else if ((Weapon == 3 && _Player->Info.IGold < 40))
 				{
+				printf_s("Player : %s\n", _Player->Name);
+				printf_s("Class : 전사\n");
 				printf_s("골드가 부족합니다. \n");
 				printf_s("MenuScene로 돌아갑니다.\n");
 				Sleep(1000);
@@ -525,11 +560,11 @@ void Store(OBJECT* _Player) // 상점
 				}
 				else if (Weapon == 4)
 				{
+				printf_s("Player : %s\n", _Player->Name);
+				printf_s("Class : 전사\n");
 				printf_s("상점창으로 되돌아갑니다.\n");
 				Sleep(1000);
 				system("cls");
-				printf_s("Player : %s\n", _Player->Name);
-				printf_s("Class : 전사\n");
 				Store(_Player);
  }
 				else
@@ -555,7 +590,7 @@ void Store(OBJECT* _Player) // 상점
 					int WChoice = 0;
 					printf_s("Player : %s\n", _Player->Name);
 					printf_s("Class : 전사\n");
-					printf_s("녹슨 갑옷 효과 : Daf + 10\n");
+					printf_s("녹슨 갑옷 효과 : Def + 10\n");
 					printf_s("1. 구입\n2. 취소\n");
 					printf_s("구입하시겠습니까? : ");
 					scanf_s("%d", &WChoice);
@@ -571,6 +606,7 @@ void Store(OBJECT* _Player) // 상점
 						system("cls");
 						_Player->Info.FDefense = _Player->Info.FDefense + 10;
 						_Player->Info.IGold = _Player->Info.IGold - 10;
+						_Player->Info.IArmor1++;
 						MenuScene(_Player);
 					}
 					else if (WChoice == 2)
@@ -581,8 +617,6 @@ void Store(OBJECT* _Player) // 상점
 						printf_s("상점창으로 되돌아갑니다.\n");
 						Sleep(1000);
 						system("cls");
-						printf_s("Player : %s\n", _Player->Name);
-						printf_s("Class : 전사\n");
 						Store(_Player);
 					}
 					else
@@ -592,11 +626,14 @@ void Store(OBJECT* _Player) // 상점
 						printf_s("잘못 선택하셨습니다.\n");
 						printf_s("상점창으로 돌아갑니다.\n");
 						Sleep(1000);
+						system("cls");
 						Store(_Player);
 					}
 				}
 				else if ((Armor == 1 && _Player->Info.IGold < 10))
 				{
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
 					printf_s("골드가 부족합니다. \n");
 					printf_s("MenuScene로 돌아갑니다.\n");
 					Sleep(1000);
@@ -623,6 +660,7 @@ void Store(OBJECT* _Player) // 상점
 						system("cls");
 						_Player->Info.FDefense = _Player->Info.FDefense + 20;
 						_Player->Info.IGold = _Player->Info.IGold - 20;
+						_Player->Info.IArmor2++;
 						MenuScene(_Player);
 					}
 					else if (WChoice == 2)
@@ -633,8 +671,6 @@ void Store(OBJECT* _Player) // 상점
 						printf_s("상점창으로 되돌아갑니다.\n");
 						Sleep(1000);
 						system("cls");
-						printf_s("Player : %s\n", _Player->Name);
-						printf_s("Class : 전사\n");
 						Store(_Player);
 					}
 					else
@@ -644,11 +680,14 @@ void Store(OBJECT* _Player) // 상점
 						printf_s("잘못 선택하셨습니다.\n");
 						printf_s("상점창으로 돌아갑니다.\n");
 						Sleep(1000);
+						system("cls");
 						Store(_Player);
 					}
 				}
 				else if ((Armor == 2 && _Player->Info.IGold < 20))
 				{
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
 					printf_s("골드가 부족합니다. \n");
 					printf_s("MenuScene로 돌아갑니다.\n");
 					Sleep(1000);
@@ -675,6 +714,7 @@ void Store(OBJECT* _Player) // 상점
 						system("cls");
 						_Player->Info.FDefense = _Player->Info.FDefense + 40;
 						_Player->Info.IGold = _Player->Info.IGold - 40;
+						_Player->Info.IArmor3++;
 						MenuScene(_Player);
 					}
 					else if (WChoice == 2)
@@ -685,13 +725,13 @@ void Store(OBJECT* _Player) // 상점
 						printf_s("상점창으로 되돌아갑니다.\n");
 						Sleep(1000);
 						system("cls");
-						printf_s("Player : %s\n", _Player->Name);
-						printf_s("Class : 전사\n");
 						Store(_Player);
 					}
 				}
 				else if ((Armor == 3 && _Player->Info.IGold < 40))
 				{
+				printf_s("Player : %s\n", _Player->Name);
+				printf_s("Class : 전사\n");
 				printf_s("골드가 부족합니다. \n");
 				printf_s("MenuScene로 돌아갑니다.\n");
 				Sleep(1000);
@@ -700,11 +740,11 @@ void Store(OBJECT* _Player) // 상점
 				}
 				else if (Armor == 4)
 				{
+				printf_s("Player : %s\n", _Player->Name);
+				printf_s("Class : 전사\n");
 				printf_s("상점창으로 되돌아갑니다.\n");
 				Sleep(1000);
 				system("cls");
-				printf_s("Player : %s\n", _Player->Name);
-				printf_s("Class : 전사\n");
 				Store(_Player);
  }
 				else
@@ -747,6 +787,7 @@ void Store(OBJECT* _Player) // 상점
 					_Player->Info.IHP = _Player->Info.IHP + 10;
 					_Player->Info.IMP = _Player->Info.IMP + 10;
 					_Player->Info.IGold = _Player->Info.IGold - 10;
+					_Player->Info.IAccessory1++;
 					MenuScene(_Player);
 				}
 				else if (WChoice == 2)
@@ -757,8 +798,6 @@ void Store(OBJECT* _Player) // 상점
 					printf_s("상점창으로 되돌아갑니다.\n");
 					Sleep(1000);
 					system("cls");
-					printf_s("Player : %s\n", _Player->Name);
-					printf_s("Class : 전사\n");
 					Store(_Player);
 				}
 				else
@@ -768,17 +807,18 @@ void Store(OBJECT* _Player) // 상점
 					printf_s("잘못 선택하셨습니다.\n");
 					printf_s("상점창으로 돌아갑니다.\n");
 					Sleep(1000);
+					system("cls");
 					Store(_Player);
 				}
 			}
 			else if ((Accessory == 1 && _Player->Info.IGold < 10))
 			{
+				printf_s("Player : %s\n", _Player->Name);
+				printf_s("Class : 전사\n");
 				printf_s("골드가 부족합니다. \n");
 				printf_s("MenuScene로 돌아갑니다.\n");
 				Sleep(1000);
 				system("cls");
-				printf_s("Player : %s\n", _Player->Name);
-				printf_s("Class : 전사\n");
 				MenuScene(_Player);
 			}
 			else if (Accessory == 2 && _Player->Info.IGold >= 20)
@@ -802,6 +842,7 @@ void Store(OBJECT* _Player) // 상점
 					_Player->Info.IHP = _Player->Info.IHP + 20;
 					_Player->Info.IMP = _Player->Info.IMP + 20;
 					_Player->Info.IGold = _Player->Info.IGold - 20;
+					_Player->Info.IAccessory2++;
 					MenuScene(_Player);
 				}
 				else if (WChoice == 2)
@@ -812,8 +853,6 @@ void Store(OBJECT* _Player) // 상점
 					printf_s("상점창으로 되돌아갑니다.\n");
 					Sleep(1000);
 					system("cls");
-					printf_s("Player : %s\n", _Player->Name);
-					printf_s("Class : 전사\n");
 					Store(_Player);
 				}
 				else
@@ -823,17 +862,18 @@ void Store(OBJECT* _Player) // 상점
 					printf_s("잘못 선택하셨습니다.\n");
 					printf_s("상점창으로 돌아갑니다.\n");
 					Sleep(1000);
+					system("cls");
 					Store(_Player);
 				}
 			}
 			else if ((Accessory == 2 && _Player->Info.IGold < 20))
 				{
+				printf_s("Player : %s\n", _Player->Name);
+				printf_s("Class : 전사\n");
 				printf_s("골드가 부족합니다. \n");
 				printf_s("MenuScene로 돌아갑니다.\n");
 				Sleep(1000);
 				system("cls");
-				printf_s("Player : %s\n", _Player->Name);
-				printf_s("Class : 전사\n");
 				MenuScene(_Player);
 				}
 			else if ((Accessory == 3 && _Player->Info.IGold >= 40))
@@ -857,6 +897,7 @@ void Store(OBJECT* _Player) // 상점
 					_Player->Info.IHP = _Player->Info.IHP + 40;
 					_Player->Info.IMP = _Player->Info.IMP + 40;
 					_Player->Info.IGold = _Player->Info.IGold - 40;
+					_Player->Info.IAccessory3++;
 					MenuScene(_Player);
 				}
 				else if (WChoice == 2)
@@ -867,8 +908,6 @@ void Store(OBJECT* _Player) // 상점
 					printf_s("상점창으로 되돌아갑니다.\n");
 					Sleep(1000);
 					system("cls");
-					printf_s("Player : %s\n", _Player->Name);
-					printf_s("Class : 전사\n");
 					Store(_Player);
 				}
 				else
@@ -878,30 +917,33 @@ void Store(OBJECT* _Player) // 상점
 					printf_s("잘못 선택하셨습니다.\n");
 					printf_s("상점창으로 돌아갑니다.\n");
 					Sleep(1000);
+					system("cls");
 					Store(_Player);
 				}
 				}
 			else if ((Accessory == 3 && _Player->Info.IGold < 40))
 				{
+				printf_s("Player : %s\n", _Player->Name);
+				printf_s("Class : 전사\n");
 				printf_s("골드가 부족합니다. \n");
 				printf_s("MenuScene로 돌아갑니다.\n");
 				Sleep(1000);
 				system("cls");
-				printf_s("Player : %s\n", _Player->Name);
-				printf_s("Class : 전사\n");
 				MenuScene(_Player);
 				}
 			else if (Accessory == 4)
 				{
+				printf_s("Player : %s\n", _Player->Name);
+				printf_s("Class : 전사\n");
 				printf_s("상점창으로 되돌아갑니다.\n");
 				Sleep(1000);
 				system("cls");
-				printf_s("Player : %s\n", _Player->Name);
-				printf_s("Class : 전사\n");
 				Store(_Player);
  }
 			else
 				{
+				printf_s("Player : %s\n", _Player->Name);
+				printf_s("Class : 전사\n");
 				printf_s("잘못 선택하셨습니다.\n");
 				printf_s("상점창으로 되돌아갑니다.\n");
 				Sleep(1000);
@@ -939,12 +981,12 @@ void Store(OBJECT* _Player) // 상점
 				}
 				else if (Medicine == 1 && _Player->Info.IGold < 1)
 				{
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
 					printf_s("골드가 부족합니다. \n");
 					printf_s("MenuScene로 돌아갑니다.\n");
 					Sleep(1000);
 					system("cls");
-					printf_s("Player : %s\n", _Player->Name);
-					printf_s("Class : 전사\n");
 					MenuScene(_Player);
 				}
 				else if (Medicine == 2 && _Player->Info.IGold >= 2)
@@ -967,12 +1009,12 @@ void Store(OBJECT* _Player) // 상점
 				}
 				else if (Medicine == 2 && _Player->Info.IGold < 2)
 				{
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
 					printf_s("골드가 부족합니다. \n");
 					printf_s("MenuScene로 돌아갑니다.\n");
 					Sleep(1000);
 					system("cls");
-					printf_s("Player : %s\n", _Player->Name);
-					printf_s("Class : 전사\n");
 					MenuScene(_Player);
 				}
 				else if (Medicine == 3 && _Player->Info.IGold >= 3)
@@ -995,12 +1037,12 @@ void Store(OBJECT* _Player) // 상점
 				}
 				else if (Medicine == 3 && _Player->Info.IGold < 3)
 				{
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
 					printf_s("골드가 부족합니다. \n");
 					printf_s("MenuScene로 돌아갑니다.\n");
 					Sleep(1000);
 					system("cls");
-					printf_s("Player : %s\n", _Player->Name);
-					printf_s("Class : 전사\n");
 					MenuScene(_Player);
 				}
 				else if (Medicine == 4 && _Player->Info.IGold >= 1)
@@ -1023,12 +1065,12 @@ void Store(OBJECT* _Player) // 상점
 				}
 				else if (Medicine == 4 && _Player->Info.IGold < 1)
 				{
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
 					printf_s("골드가 부족합니다. \n");
 					printf_s("MenuScene로 돌아갑니다.\n");
 					Sleep(1000);
 					system("cls");
-					printf_s("Player : %s\n", _Player->Name);
-					printf_s("Class : 전사\n");
 					MenuScene(_Player);
 				}
 				else if (Medicine == 5 && _Player->Info.IGold >= 2)
@@ -1051,12 +1093,12 @@ void Store(OBJECT* _Player) // 상점
 				}
 				else if (Medicine == 5 && _Player->Info.IGold < 2)
 				{
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
 					printf_s("골드가 부족합니다. \n");
 					printf_s("MenuScene로 돌아갑니다.\n");
 					Sleep(1000);
 					system("cls");
-					printf_s("Player : %s\n", _Player->Name);
-					printf_s("Class : 전사\n");
 					MenuScene(_Player);
 				}
 				else if (Medicine == 6 && _Player->Info.IGold >= 3)
@@ -1081,10 +1123,10 @@ void Store(OBJECT* _Player) // 상점
 				{
 					printf_s("골드가 부족합니다. \n");
 					printf_s("MenuScene로 돌아갑니다.\n");
-					Sleep(1000);
-					system("cls");
 					printf_s("Player : %s\n", _Player->Name);
 					printf_s("Class : 전사\n");
+					Sleep(1000);
+					system("cls");
 					MenuScene(_Player);
 				}
 				else
@@ -1099,21 +1141,21 @@ void Store(OBJECT* _Player) // 상점
 			}
 			else if (Choiec == 5)
 			{
+				printf_s("Player : %s\n", _Player->Name);
+				printf_s("Class : 전사\n");
 				printf_s("상점창으로 되돌아갑니다.\n");
 				Sleep(1000);
 				system("cls");
-				printf_s("Player : %s\n", _Player->Name);
-				printf_s("Class : 전사\n");
 				Store(_Player);
 			}
 			else
 			{
+			printf_s("Player : %s\n", _Player->Name);
+			printf_s("Class : 전사\n");
 			printf_s("잘못선택하셨습니다.\n");
 			printf_s("상점창으로 되돌아갑니다.\n");
 			Sleep(1000);
 			system("cls");
-			printf_s("Player : %s\n", _Player->Name);
-			printf_s("Class : 전사\n");
 			Store(_Player);
 			}
 		}
@@ -1900,6 +1942,278 @@ void Store(OBJECT* _Player) // 상점
 		}
 		}
 	}
+	else if (n == 2)
+	{
+	if (_Player->Info.IClass == 1)
+	{
+		int Choiec = 0;
+		system("cls");
+		printf_s("Player : %s\n", _Player->Name);
+		printf_s("Class : 전사\n");
+		printf_s("1. 무기\n2. 방어구\n3. 장신구\n4. 물약\n5. 상점처음화면\n선택 : ");
+		scanf_s("%d", &Choiec);
+		system("cls");
+
+		if (Choiec == 1)
+		{
+			int Weapon = 0;
+			printf_s("Player : %s\n", _Player->Name);
+			printf_s("Class : 전사\n");
+			printf_s("1. 녹슨 검 10 Gold\n2. 강철 검 20 Gold\n3. 최상급 검 40 Gold\n4. 상점처음화면\n선택 : ");
+			scanf_s("%d", &Weapon);
+			system("cls");
+			
+			if (Weapon == 1)
+			{
+				if (_Player->Info.IWeapon1 > 0)
+				{
+					int n = 0;
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
+					printf_s("녹슨 검을 판매\n1. 판매하기\n2. 취소하기\n선택 : ");
+					scanf_s("%d", &n);
+					system("cls");
+
+					if (n == 1)
+					{
+						printf_s("Player : %s\n", _Player->Name);
+						printf_s("Class : 전사\n");
+						printf_s("녹슨 검이 판매 되었습니다.");
+						printf_s("MenuScene로 돌아갑니다.\n");
+						_Player->Info.FAttack = _Player->Info.FAttack - 10;
+						_Player->Info.IGold = _Player->Info.IGold + 10;
+						_Player->Info.IWeapon1--;
+						Sleep(1000);
+						system("cls");
+						MenuScene(_Player);
+					}
+					else if (n == 2)
+					{
+						printf_s("Player : %s\n", _Player->Name);
+						printf_s("Class : 전사\n");
+						printf_s("판매를 취소했습니다. \n");
+						printf_s("상점창으로 되돌아갑니다.\n");
+						Sleep(1000);
+						system("cls");
+						Store(_Player);
+					}
+					else
+					{
+						printf_s("Player : %s\n", _Player->Name);
+						printf_s("Class : 전사\n");
+						printf_s("잘못 선택하셨습니다.\n");
+						printf_s("상점창으로 돌아갑니다.\n");
+						Sleep(1000);
+						system("cls");
+						Store(_Player);
+					}
+				}
+				else
+				{
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
+					printf_s("녹슨 검이 없습니다.\n");
+					printf_s("MenuScene로 돌아갑니다.\n");
+					Sleep(1000);
+					MenuScene(_Player);
+				}
+			}
+			else if (Weapon == 2)
+			{
+				if (_Player->Info.IWeapon2 > 0)
+				{
+					int n = 0;
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
+					printf_s("강철 검을 판매\n1. 판매하기\n2. 취소하기\n선택 : ");
+					scanf_s("%d", &n);
+					system("cls");
+
+					if (n == 1)
+					{
+						printf_s("Player : %s\n", _Player->Name);
+						printf_s("Class : 전사\n");
+						printf_s("강철 검이 판매 되었습니다.");
+						printf_s("MenuScene로 돌아갑니다.\n");
+						_Player->Info.FAttack = _Player->Info.FAttack - 20;
+						_Player->Info.IGold = _Player->Info.IGold + 20;
+						_Player->Info.IWeapon2--;
+						Sleep(1000);
+						system("cls");
+						MenuScene(_Player);
+					}
+					else if (n == 2)
+					{
+						printf_s("Player : %s\n", _Player->Name);
+						printf_s("Class : 전사\n");
+						printf_s("판매를 취소했습니다. \n");
+						printf_s("상점창으로 되돌아갑니다.\n");
+						Sleep(1000);
+						system("cls");
+						Store(_Player);
+					}
+					else
+					{
+						printf_s("Player : %s\n", _Player->Name);
+						printf_s("Class : 전사\n");
+						printf_s("잘못 선택하셨습니다.\n");
+						printf_s("상점창으로 돌아갑니다.\n");
+						Sleep(1000);
+						system("cls");
+						Store(_Player);
+					}
+				}
+				else
+				{
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
+					printf_s("녹슨 검이 없습니다.\n");
+					printf_s("MenuScene로 돌아갑니다.\n");
+					Sleep(1000);
+					MenuScene(_Player);
+				}
+			}
+			else if (Weapon == 3)
+			{
+			if (_Player->Info.IWeapon3 > 0)
+			{
+				int n = 0;
+				printf_s("Player : %s\n", _Player->Name);
+				printf_s("Class : 전사\n");
+				printf_s("최상급 검을 판매\n1. 판매하기\n2. 취소하기\n선택 : ");
+				scanf_s("%d", &n);
+				system("cls");
+
+				if (n == 1)
+				{
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
+					printf_s("최상급 검이 판매 되었습니다.");
+					printf_s("MenuScene로 돌아갑니다.\n");
+					_Player->Info.FAttack = _Player->Info.FAttack - 40;
+					_Player->Info.IGold = _Player->Info.IGold + 40;
+					_Player->Info.IWeapon3--;
+					Sleep(1000);
+					system("cls");
+					MenuScene(_Player);
+				}
+				else if (n == 2)
+				{
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
+					printf_s("판매를 취소했습니다. \n");
+					printf_s("상점창으로 되돌아갑니다.\n");
+					Sleep(1000);
+					system("cls");
+					Store(_Player);
+				}
+				else
+				{
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
+					printf_s("잘못 선택하셨습니다.\n");
+					printf_s("상점창으로 돌아갑니다.\n");
+					Sleep(1000);
+					system("cls");
+					Store(_Player);
+				}
+			}
+			else
+			{
+				printf_s("Player : %s\n", _Player->Name);
+				printf_s("Class : 전사\n");
+				printf_s("최상급 검이 없습니다.\n");
+				printf_s("MenuScene로 돌아갑니다.\n");
+				Sleep(1000);
+				MenuScene(_Player);
+			}
+ }
+			else if (Weapon == 4)
+			{
+			printf_s("Player : %s\n", _Player->Name);
+			printf_s("Class : 전사\n");
+			printf_s("상점창으로 되돌아갑니다.\n");
+			Sleep(1000);
+			system("cls");
+			Store(_Player);
+ }
+			else
+			{
+			printf_s("Player : %s\n", _Player->Name);
+			printf_s("Class : 전사\n");
+			printf_s("잘못선택하셨습니다.\n");
+			printf_s("상점창으로 되돌아갑니다.\n");
+			Sleep(1000);
+			system("cls");
+			Store(_Player);
+ }
+		}
+		else if (Choiec == 2)
+		{
+		int Armor = 0;
+		printf_s("Player : %s\n", _Player->Name);
+		printf_s("Class : 전사\n");
+		printf_s("1. 녹슨 갑옷 10 Gold\n2. 강철 갑옷 20 Gold\n3. 최상급 갑옷 40 Gold\n4. 상점처음화면\n선택 : ");
+		scanf_s("%d", &Armor);
+		system("cls");
+		if (Armor == 1)
+		{
+			if (_Player->Info.IArmor1 > 0)
+			{
+				int n = 0;
+				printf_s("Player : %s\n", _Player->Name);
+				printf_s("Class : 전사\n");
+				printf_s("녹슨 갑옷을 판매\n1. 판매하기\n2. 취소하기\n선택 : ");
+				scanf_s("%d", &n);
+				system("cls");
+
+				if (n == 1)
+				{
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
+					printf_s("녹슨 갑옷이 판매 되었습니다.");
+					printf_s("MenuScene로 돌아갑니다.\n");
+					_Player->Info.FDefense = _Player->Info.FDefense - 10;
+					_Player->Info.IGold = _Player->Info.IGold + 10;
+					_Player->Info.IArmor1--;
+					Sleep(1000);
+					system("cls");
+					MenuScene(_Player);
+				}
+				else if (n == 2)
+				{
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
+					printf_s("판매를 취소했습니다. \n");
+					printf_s("상점창으로 되돌아갑니다.\n");
+					Sleep(1000);
+					system("cls");
+					Store(_Player);
+				}
+				else
+				{
+					printf_s("Player : %s\n", _Player->Name);
+					printf_s("Class : 전사\n");
+					printf_s("잘못 선택하셨습니다.\n");
+					printf_s("상점창으로 돌아갑니다.\n");
+					Sleep(1000);
+					system("cls");
+					Store(_Player);
+				}
+			}
+			else
+			{
+				printf_s("Player : %s\n", _Player->Name);
+				printf_s("Class : 전사\n");
+				printf_s("녹슨 갑옷이 없습니다.\n");
+				printf_s("MenuScene로 돌아갑니다.\n");
+				Sleep(1000);
+				MenuScene(_Player);
+			}
+		}
+ }
+	}
+}
 	else if (n == 3)
 	{
 	printf_s("메인메뉴로 돌아갑니다.\n");
@@ -1914,6 +2228,7 @@ void PlayerData(OBJECT* _Player) // 플레이어 상태창
 {
 	if (_Player->Info.IClass == 1)
 	{
+		printf_s("Player : %s\n", _Player->Name);
 		printf_s("당신의 직업은 전사입니다.\n");
 		printf_s("HP : %d\n", _Player->Info.IHP);
 		printf_s("MP : %d\n", _Player->Info.IMP);
@@ -1927,10 +2242,72 @@ void PlayerData(OBJECT* _Player) // 플레이어 상태창
 		printf_s("고급 체력 포션 : %d\n", _Player->Info.IHPMedicine3);
 		printf_s("하급 마나 포션 : %d\n", _Player->Info.IMPMedicine1);
 		printf_s("중급 마나 포션 : %d\n", _Player->Info.IMPMedicine2);
-		printf_s("고급 마나 포션 : %d\n", _Player->Info.IMPMedicine3);
+		printf_s("고급 마나 포션 : %d\n\n", _Player->Info.IMPMedicine3);
+		printf_s("착용 장비\n");
+
+		if (_Player->Info.IWeapon1 > 0)
+		{
+			printf_s("녹슨 검 * %d\n", _Player->Info.IWeapon1);
+			printf_s("효과 : Att + 10 * %d\n\n", _Player->Info.IWeapon1);
+		}
+		if (_Player->Info.IWeapon2 > 0)
+		{
+			printf_s("강철 검 * %d\n", _Player->Info.IWeapon2);
+			printf_s("효과 : Att + 20 * %d\n\n", _Player->Info.IWeapon2);
+		}
+		if (_Player->Info.IWeapon3 > 0)
+		{
+			printf_s("최상급 검 * %d\n", _Player->Info.IWeapon3);
+			printf_s("효과 : Att + 40 * %d\n\n", _Player->Info.IWeapon3);
+		}
+		if (_Player->Info.IWeapon1 < 1 && _Player->Info.IWeapon2 < 1 && _Player->Info.IWeapon3 < 1)
+		{
+			printf_s("무기 없음\n\n");
+		}
+
+		if (_Player->Info.IArmor1 > 0)
+		{
+			printf_s("녹슨 갑옷 * %d\n", _Player->Info.IArmor1);
+			printf_s("효과 : Def + 10 * %d\n\n", _Player->Info.IArmor1);
+		}
+		if (_Player->Info.IArmor2 > 0)
+		{
+			printf_s("강철 갑옷 * %d\n", _Player->Info.IArmor2);
+			printf_s("효과 : Def + 20 * %d\n\n", _Player->Info.IArmor2);
+		}
+		if (_Player->Info.IArmor3 > 0)
+		{
+			printf_s("최상급 갑옷 * %d\n", _Player->Info.IArmor3);
+			printf_s("효과 : Def + 40 * %d\n\n", _Player->Info.IArmor3);
+		}
+		if (_Player->Info.IArmor1 < 1 && _Player->Info.IArmor2 < 1 && _Player->Info.IArmor3 < 1)
+		{
+			printf_s("갑옷 없음\n\n");
+		}
+
+		if (_Player->Info.IAccessory1 > 0)
+		{
+			printf_s("녹슨 반지 * %d\n", _Player->Info.IAccessory1);
+			printf_s("효과 : HP + 10 * %d, MP + 10 * %d\n\n", _Player->Info.IAccessory1, _Player->Info.IAccessory1);
+		}
+		if (_Player->Info.IAccessory2 > 0)
+		{
+			printf_s("강철 반지 * %d\n", _Player->Info.IAccessory2);
+			printf_s("효과 : HP + 20 * %d, MP + 20 * %d\n\n", _Player->Info.IAccessory2, _Player->Info.IAccessory2);
+		}
+		if (_Player->Info.IAccessory3 > 0)
+		{
+			printf_s("최상급 반지 * %d\n", _Player->Info.IAccessory3);
+			printf_s("효과 : HP + 40 * %d, MP + 40 * %d\n\n", _Player->Info.IAccessory3, _Player->Info.IAccessory3);
+		}
+		if (_Player->Info.IAccessory1 < 1 && _Player->Info.IAccessory2 < 1 && _Player->Info.IAccessory3 < 1)
+		{
+			printf_s("반지 없음\n\n");
+		}
 	}
 	else if (_Player->Info.IClass == 2)
 	{
+		printf_s("Player : %s\n", _Player->Name);
 		printf_s("당신의 직업은 궁수입니다.\n");
 		printf_s("HP : %d\n", _Player->Info.IHP);
 		printf_s("MP : %d\n", _Player->Info.IMP);
@@ -1969,6 +2346,7 @@ void PlayerData(OBJECT* _Player) // 플레이어 상태창
 void StageScene(OBJECT * _Player, OBJECT * _Enemy) // 스테이지 몬스터와 전투
 {
 	int ISelect = 0;
+	printf_s("Player : %s\n", _Player->Name);
 	printf_s("StageScene\n");
 	printf_s("몬스터와 마주쳤습니다.\n");
 	printf_s("1. 전투창 2. 도망\n선택 : ");
@@ -2170,8 +2548,6 @@ void BasesBattle(OBJECT* _Player, OBJECT* _Enemy)
 
 				if ((Rand % 3) == 1 || (Rand % 3) == 2)
 				{
-					system("cls");
-					printf_s("Player : %s\n", _Player->Name);
 					printf_s("도망치는데 성공했습니다.\n");
 					printf_s("메인메뉴로 돌아갑니다.\n");
 					Sleep(1000);
@@ -2180,8 +2556,6 @@ void BasesBattle(OBJECT* _Player, OBJECT* _Enemy)
 				}
 				else
 				{
-					system("cls");
-					printf_s("Player : %s\n", _Player->Name);
 					printf_s("도망치는데 실패했습니다.\n");
 					printf_s("전투를 시작합니다.\n");
 					Sleep(1000);
